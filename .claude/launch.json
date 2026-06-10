@@ -1,0 +1,25 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "frontend",
+      "runtimeExecutable": "/usr/local/bin/node",
+      "runtimeArgs": [
+        "/Users/admin/Documents/Codes/Photograph/frontend/node_modules/vite/bin/vite.js",
+        "--port", "9000", "--host",
+        "--config", "/Users/admin/Documents/Codes/Photograph/frontend/vite.preview.config.js"
+      ],
+      "port": 9000,
+      "cwd": "/Users/admin/Documents/Codes/Photograph/frontend"
+    },
+    {
+      "name": "backend",
+      "runtimeExecutable": "/usr/local/bin/node",
+      "runtimeArgs": [
+        "/Users/admin/Documents/Codes/Photograph/backend/server.js"
+      ],
+      "port": 4000,
+      "cwd": "/Users/admin/Documents/Codes/Photograph/backend"
+    }
+  ]
+}

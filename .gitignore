@@ -1,0 +1,38 @@
+# ---- 依赖 ----
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# ---- 密钥/环境变量（绝不提交）----
+.env
+.env.local
+.env.*.local
+backend/.env
+backend/.env.local
+
+# ---- 构建产物 ----
+frontend/dist/
+
+# ---- 运行时数据（用户上传/相册/抠图临时文件，体积大且非源码）----
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/album/*
+!backend/album/.gitkeep
+backend/user-backgrounds/*
+!backend/user-backgrounds/.gitkeep
+
+# ---- 自签证书 ----
+backend/certs/
+
+# ---- Electron 打包产物（巨大，不入库）----
+electron/dist-win/
+electron/dist/
+
+# ---- 历史打包 zip ----
+*.zip
+
+# ---- 日志/进程/系统文件 ----
+*.log
+.logs/
+.service.pid
+.DS_Store

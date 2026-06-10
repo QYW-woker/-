@@ -1,0 +1,67 @@
+{
+  "name": "photograph-electron",
+  "version": "1.0.0",
+  "description": "拍照体验站 - Windows 桌面版",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "dev":       "npm run build:fe && electron .",
+    "build:fe":  "cd ../frontend && npm install && npm run build",
+    "build:win": "npm run build:fe && electron-builder --win --x64",
+    "build:dir": "npm run build:fe && electron-builder --dir",
+    "build:win:dir": "npm run build:fe && electron-builder --dir --win --x64"
+  },
+  "dependencies": {
+    "express":               "^4.18.2",
+    "http-proxy-middleware": "^2.0.6"
+  },
+  "devDependencies": {
+    "electron":         "^28.3.3",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId":       "com.photograph.booth",
+    "productName": "拍照体验站",
+    "copyright":   "Copyright © 2024",
+
+    "directories": {
+      "output": "dist-win"
+    },
+
+    "files": [
+      "main.js",
+      "node_modules/**/*"
+    ],
+
+    "extraResources": [
+      {
+        "from": "../backend",
+        "to":   "backend"
+      },
+      {
+        "from": "../frontend/dist",
+        "to":   "frontend/dist"
+      }
+    ],
+
+    "win": {
+      "target": [
+        { "target": "nsis",     "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ]
+    },
+
+    "nsis": {
+      "oneClick":                        false,
+      "perMachine":                      false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut":           true,
+      "createStartMenuShortcut":         true,
+      "shortcutName":                    "拍照体验站"
+    },
+
+    "portable": {
+      "artifactName": "${productName}-portable-${version}.exe"
+    }
+  }
+}

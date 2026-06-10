@@ -1,0 +1,25 @@
+# Render 部署蓝图（Blueprint）
+# 在 Render 控制台：New → Blueprint → 选本仓库，会自动读取此文件。
+# 整个应用作为单个 Node Web Service 运行：后端同时托管前端静态页 + API。
+services:
+  - type: web
+    name: photograph-h5
+    runtime: node
+    plan: free
+    # 构建：装后端依赖 + 装前端依赖并打包出 frontend/dist
+    buildCommand: npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend
+    # 启动：跑后端（无证书 → HTTP 单端口，Render 在前面统一加 HTTPS）
+    startCommand: node backend/server.js
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # remove.bg 抠图密钥 —— 在 Render 控制台手动填，不进代码仓库
+      - key: REMOVE_BG_API_KEY
+        sync: false
+      # 可选：图片过期小时数（默认 2）
+      - key: IMAGE_EXPIRE_HOURS
+        value: "2"
+      # PUBLIC_URL / IMAGE_PUBLIC_URL 留空即可：
+      # 二维码地址会自动从请求头推导出 https://<你的应用>.onrender.com
