@@ -3,10 +3,12 @@ import vue from '@vitejs/plugin-vue'
 import mkcert from 'vite-plugin-mkcert'
 import path from 'path'
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [
     vue(),
-    mkcert()   // 自动生成本地信任的 HTTPS 证书，手机局域网访问摄像头必需
+    // mkcert 仅用于本地 dev 的 HTTPS（手机局域网访问摄像头）。
+    // 生产构建（vite build，如 Render）不需要，且它会尝试下载二进制/改信任库导致构建失败。
+    ...(command === 'serve' ? [mkcert()] : [])
   ],
   resolve: {
     alias: {
@@ -28,4 +30,4 @@ export default defineConfig({
       }
     }
   }
-})
+}))
