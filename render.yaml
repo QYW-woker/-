@@ -6,8 +6,8 @@ services:
     name: photograph-h5
     runtime: node
     plan: free
-    # 构建：装后端依赖 + 装前端依赖并打包出 frontend/dist
-    buildCommand: npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend
+    # 构建：装后端依赖 + 装前端依赖（含 devDependencies，否则 NODE_ENV=production 会跳过 vite）并打包
+    buildCommand: npm install --prefix backend && npm install --prefix frontend --include=dev && npm run build --prefix frontend
     # 启动：跑后端（无证书 → HTTP 单端口，Render 在前面统一加 HTTPS）
     startCommand: node backend/server.js
     healthCheckPath: /api/health
